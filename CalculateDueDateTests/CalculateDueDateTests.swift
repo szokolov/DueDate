@@ -13,7 +13,6 @@ class CalculateDueDateTests: XCTestCase {
     
     // TODO: Tests fail if working hours length is not 8 hour. Check how can test more general
     
-    var sut : DueDate!
     var submitDateFormatter : DateFormatter!
     var submitDate : Date!
 
@@ -22,13 +21,12 @@ class CalculateDueDateTests: XCTestCase {
         
         submitDateFormatter = DateFormatter()
         submitDateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        submitDateFormatter.locale = Locale.init(identifier: "hu_HU")
-        let submitDateString = "2019-02-04 12:45"
-        submitDate = submitDateFormatter.date(from: submitDateString)
+        submitDate = submitDateFormatter.date(from: "2019-02-04 12:45")
     }
 
     override func tearDown() {
-        sut = nil
+        submitDate = nil
+        submitDateFormatter = nil
         submitDate = nil
         super.tearDown()
     }
