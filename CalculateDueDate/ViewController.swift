@@ -16,9 +16,9 @@ class ViewController: UIViewController {
         
         let submitDateFormatter = DateFormatter()
         submitDateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let submitDateString = "2019-02-04 14:45"
+        let submitDateString = "2018-12-29 14:45"
         guard let submitDate = submitDateFormatter.date(from: submitDateString) else { return }
-        let turnaroundTime = 9
+        let turnaroundTime = 54
                 
         if let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: turnaroundTime) {
             print("turnaroundTime             : \(turnaroundTime)")

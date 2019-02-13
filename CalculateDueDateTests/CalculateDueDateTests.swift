@@ -33,42 +33,81 @@ class CalculateDueDateTests: XCTestCase {
     
     func test_dueDateWith8tt() {
         let tt = 8
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-05 12:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case 8 hours turnaround time")
     }
     
     func test_dueDateWithARandomTt() {
         let tt = 11
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-05 15:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case 11 hours turnaround time")
     }
     
     func test_dueDateWith16tt() {
         let tt = 16
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-06 12:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case 16 hours turnaround time")
     }
     
+    func test_overTheWeekend() {
+        let tt = 54
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
+        let expectedDate = "2019-02-13 10:45"
+        XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case due date is in the next week")
+    }
+    
+    func test_overTheYear() {
+        let submitDate = submitDateFormatter.date(from: "2018-12-27 14:45")!
+        let tt = 54
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
+        let expectedDate = "2019-01-07 12:45"
+        XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case due date is in the next week")
+    }
+    
     func test_dueDateIfExpectedResultIsInTheSameDay() {
         let tt = 3
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-04 15:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case due date should be in the same day")
     }
     
     func test_dueDateWithSaturday() {
         let tt = 40
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-11 12:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case due date should be in Saturday")
     }
     
     func test_dueDateWithSunday() {
         let tt = 48
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-12 12:45"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case due date should be in Sunday")
     }
@@ -92,7 +131,10 @@ class CalculateDueDateTests: XCTestCase {
             XCTAssert(false, "wrong format string")
             return
         }
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-02-05 16:00"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case 8 hours turnaround time")
     }
@@ -140,7 +182,10 @@ class CalculateDueDateTests: XCTestCase {
             XCTAssert(false, "wrong format string")
             return
         }
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-04-01 15:00"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case spring DST state change")
     }
@@ -152,7 +197,10 @@ class CalculateDueDateTests: XCTestCase {
             XCTAssert(false, "wrong format string")
             return
         }
-        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else { return }
+        guard let dueDate = DueDate.calculateDueDate(submitDate: submitDate, turnaroundTime: tt)?.localTime else {
+            XCTAssert(false, "error in due date calculation")
+            return
+        }
         let expectedDate = "2019-10-28 15:00"
         XCTAssertEqual(dueDate, expectedDate, "wrong calculation in case autumn DST state change")
     }
